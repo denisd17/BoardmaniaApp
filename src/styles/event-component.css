@@ -1,0 +1,20 @@
+.details-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    
+}
+.form-label-event {
+    height: 100%;
+    width: 100%;
+    background-color: #ffe499;
+    border: 3px solid black;
+    border-radius: 5px;
+    padding: 10px;
+}
+.form-event { 
+    margin: 10px;
+    margin-left: 50px;
+}
