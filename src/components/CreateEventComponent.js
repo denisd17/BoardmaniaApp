@@ -9,6 +9,8 @@ import { Form, Card, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import gameService from "../service/gameService";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const CreateEventComponent = () => {
   const { currentUser } = useAuth();
@@ -18,12 +20,13 @@ const CreateEventComponent = () => {
   const nameRef = useRef();
   const descriptionRef = useRef();
   const locationRef = useRef();
-  const dateTimeRef = useRef();
+  const timeRef = useRef();
   const onlineRef = useRef();
   const maxNumOfPlayersRef = useRef();
   const minTrustScoreRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
     if (!currentUser) {
@@ -48,17 +51,20 @@ const CreateEventComponent = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log(startDate.toISOString().slice(0, 11) + timeRef.current.value + ":00");
+    let eventDate = Date.parse(startDate.toISOString().slice(0, 11) + timeRef.current.value + ":00");
+    console.log(eventDate);
     const eventData = {
       name: nameRef.current.value,
       description: descriptionRef.current.value,
       location: locationRef.current.value,
-      eventDateTimestamp: Date.parse(dateTimeRef.current.value),
+      eventDateTimestamp: eventDate,
       online: onlineRef.current.checked,
       maxNrOfPlayers: maxNumOfPlayersRef.current.value,
       minTrustScore: minTrustScoreRef.current.value,
       gameIds: selectedGames.map((option) => Number(option.value)),
     };
-    console.log(Date.parse(dateTimeRef.current.value))
+    
     try {
       setError("");
       setLoading(true);
@@ -117,15 +123,21 @@ const CreateEventComponent = () => {
                     className="text-center"
                   />
                 </Form.Group>
-                <Form.Group id="datetime" className="text-center">
-                  <Form.Label>Date & Time {"(yyyy-mm-ddThh:mm:ss)"}</Form.Label>
+                <Form.Group className="text-center">
+                  <Form.Label>Event Date</Form.Label>
+                  <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                </Form.Group>
+                <Form.Group id="time" className="text-center">
+                  <Form.Label>Event Time</Form.Label>
                   <Form.Control
                     type="text"
-                    ref={dateTimeRef}
+                    ref={timeRef}
                     required
                     className="text-center"
+                    placeholder="18:30"
                   />
                 </Form.Group>
+                
                 <Form.Group id="maxplayers" className="text-center">
                   <Form.Label>Max Number of Players</Form.Label>
                   <Form.Control

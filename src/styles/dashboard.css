@@ -16,7 +16,6 @@
 }
 
 .search-bar-container {
-    background-color: red;
     height: 100%;
     width: 60%;
     display: flex;
@@ -35,4 +34,27 @@ input {
     width: 40%;
     display: flex;
     align-items: center;
+}
+
+.page-menu {
+    display: flex;
+    width: 60%;
+    background-color: white;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-menu div {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.page-button {
+
+}
+
+.event-grid {
+    display: grid;
+    grid-template-columns: auto auto;
 }
