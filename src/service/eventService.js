@@ -4,12 +4,16 @@ import { JoinEventDto } from "../dto/JoinEventDto";
 const EVENTS_PATH = "/events"
 let counter = 0;
 
-const getEvents = async () => {
+const getEventsPage = async (pageNumber, pageSize, filters) => {
     try {
         const token = localStorage.getItem('access_token');
-        const response = await axios.get(EVENTS_PATH, {
+        const response = await axios.post(EVENTS_PATH, filters, {
             headers: {
                 Authorization: `Bearer ${token}`
+            },
+            params: {
+                pageNumber,
+                pageSize
             }
         });
         return response;

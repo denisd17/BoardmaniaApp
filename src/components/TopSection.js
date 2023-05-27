@@ -16,34 +16,37 @@ export default function TopSection() {
     }
 
     return (
-        <div className="container-top">
-            <div className="app-name">
-                <span>Boardmania</span>
+        <div className="container-top flex-row-center">
+            <div className="app-logo">
+                <img src={require('../resources/Logo.png')} alt="test"></img>
             </div>
-            <div className="links-container">
-                {currentUser && (
+            {currentUser && (
+            <div className="logged-in-menu flex-row-center">
+                <div className="main-menu flex-row-center"> 
+                    <div className="div-link" onClick={() => { handleClick("/my-events") }}> Create Event </div>
                     <div className="div-link" onClick={() => { handleClick("/my-events") }}> My Events </div>
-                )
-                }
-                {currentUser && (
                     <div className="div-link" onClick={() => { handleClick("/dashboard") }}> All Events </div>
-                )
-                }
-                {currentUser && (
                     <div className="div-link" onClick={() => { handleClick("/games") }}> Show Games </div>
-                )
-                }
-                {currentUser && (
-                    <div className="div-link" onClick={() => { handleLogout() }}> Logout </div>
-                )
-                }
-                {!currentUser && (
-                    <div className="div-link" onClick={() => { handleClick("/login") }}> Login </div>
-                )}
-                {!currentUser && (
-                    <div className="div-link" onClick={() => { handleClick("/register") }}> Register </div>
-                )}
+                </div>
+
+                <div className="side-menu flex-row-center">
+                    <div className="div-link side-button" onClick={() => { handleLogout() }}>
+                        <img className="side-img" src={require('../resources/user.png')} alt="test"></img>
+                    </div>
+                    <div className="div-link side-button" onClick={() => { handleLogout() }}>
+                        <img className="side-img" src={require('../resources/sign-out-alt@.png')} alt="test"></img>
+                    </div>
+                </div>
             </div>
+            )
+            }
+            {!currentUser && (
+            <div className="logged-out-menu">
+                    <div className="div-link" onClick={() => { handleClick("/login") }}> Login </div>
+                    <div className="div-link" onClick={() => { handleClick("/register") }}> Register </div>   
+            </div>
+            )
+            }
         </div>
     );
 }
