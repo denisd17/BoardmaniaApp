@@ -34,7 +34,7 @@ export default function TopSection() {
                         <img className="side-img" src={require('../resources/user.png')} alt="test"></img>
                     </div>
                     <div className="div-link side-button" onClick={() => { handleLogout() }}>
-                        <img className="side-img" src={require('../resources/sign-out-alt@.png')} alt="test"></img>
+                        <img className="side-img" src={require('../resources/sign-out-alt.png')} alt="test"></img>
                     </div>
                 </div>
             </div>
