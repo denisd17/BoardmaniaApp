@@ -47,12 +47,12 @@ const DashboardComponent = () => {
               <input className="search-input" type="text" onChange={e => {test(1)}}></input>
           </div>
           <div className="checkbox-container">
-              <input type="radio" id="all" onChange={e => test(1)}></input>
-              <label for="html">All</label>
-              <input type="radio" id="online" onChange={e => test(2)}></input>
-              <label for="css">Online</label>
-              <input type="radio" id="onsite" onChange={e => test(3)}></input>
-              <label for="javascript">Onsite</label>
+              <input type="radio" id="all" name="radio" value="place1" onChange={e => test(1)}></input>
+              <label for="all">All</label>
+              <input type="radio" id="online" name="radio" value="place2" onChange={e => test(2)}></input>
+              <label for="online">Online</label>
+              <input type="radio" id="onsite" name="radio" value="place3" onChange={e => test(3)}></input>
+              <label for="onsite">Onsite</label>
           </div>
         </div>
         <div style={{marginBottom:"50px"}}>
