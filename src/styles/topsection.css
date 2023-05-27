@@ -1,34 +1,55 @@
-.container-top {
-    height: 60px;
-    padding-left: 60px;
-    padding-right: 60px;
+.flex-row-center {
     display: flex;
     flex-direction: row;
+    align-items: center;
+}
+
+.container-top {
+    height: 120px;
+    background-color: white;
+    width: 100%;
+}
+
+.app-logo {
+    background-color: blueviolet;
+    width: 15%;
+}
+
+.logged-in-menu {
     justify-content: space-between;
-    align-items: center;
-    background-color: #ffe499;
+    width: 85%;
 }
-.app-name {
-    font-weight: bold;
-    font-size: 2rem;
+
+.main-menu {
+    margin-left: 100px;
+    justify-content: flex-start;
+    gap: 100px;
+    width: 95%;
+    
 }
-.links-container {
-    height: 100%;
-    display: flex;
-    align-items: center;
+
+.side-menu {
+    justify-content: space-evenly;
+    width: 5%; 
+    
 }
+
 .div-link {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    margin-left: 5px;
-    margin-right: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    cursor: pointer;
-    transition: background-color 0.5s linear 0.1s , color 0.5s linear 0s;
+    font-size: 30px;
+    font-family: 'Oswald', sans-serif;
 }
-.div-link:hover{
-    background-color: rgb(197, 133, 23);
-    color: white;
+
+.div-link:hover {
+    border-bottom: 5px solid black;
+    margin-bottom: -5px;
+}
+
+.side-img {
+    max-width: 60%;
+    max-height: 60%;
+}
+
+.side-button {
+    display: flex;
+    justify-content: center;
 }

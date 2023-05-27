@@ -5,5 +5,34 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-top: 50px;
+    padding-top: 14px;
+}
+
+.filters-container {
+    display: flex;
+    width: 94%;
+    background-color: white;
+    height: 60px;
+}
+
+.search-bar-container {
+    background-color: red;
+    height: 100%;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 20px;
+}
+
+input {
+    height: 50%;
+    width: 100%;
+}
+
+.checkbox-container {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
 }
