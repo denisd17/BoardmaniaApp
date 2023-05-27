@@ -10,6 +10,10 @@ import TopSection from "./TopSection";
 
 const DashboardComponent = () => {
   const [events, setEvents] = useState([]);
+  const [locationType, setLocationType] = useState(0);
+  const [searchParam, setSearchParam] = useState("");
+  const [pageNr, setPageNr] = useState(0);
+
   const { currentUser } = useAuth();
   const history = useHistory();
 
@@ -17,18 +21,25 @@ const DashboardComponent = () => {
     console.log(id);
   }
 
+  const getEvents = async (search, type) => {
+    console.log(searchParam);
+    try {
+      let filters = {
+        searchParam : search ? search : searchParam,
+        locationType : type ? type : locationType
+      }
+
+      const response = await eventService.getEventsPage(0, 4, filters);
+      setEvents(response.data);
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     if (!currentUser) {
       history.push("/login");
-    }
-    const getEvents = async () => {
-      try {
-        const response = await eventService.getEventsPage(0, 4);
-        setEvents(response.data);
-        console.log(response.data);
-      } catch (err) {
-        console.log(err);
-      }
     }
 
     getEvents();
@@ -44,14 +55,14 @@ const DashboardComponent = () => {
       <div className="main-container">
         <div className="filters-container">
           <div className="search-bar-container">
-              <input className="search-input" type="text" onChange={e => {test(1)}}></input>
+              <input className="search-input" type="text" onChange={e => {setSearchParam(e.target.value); getEvents(e.target.value, null);}}></input>
           </div>
           <div className="checkbox-container">
-              <input type="radio" id="all" name="radio" value="place1" onChange={e => test(1)}></input>
+              <input type="radio" id="all" name="radio" value="0" onChange={e => {setLocationType(0); getEvents(null, 0);}}></input>
               <label for="all">All</label>
-              <input type="radio" id="online" name="radio" value="place2" onChange={e => test(2)}></input>
+              <input type="radio" id="online" name="radio" value="1" onChange={e => {setLocationType(1);getEvents(null, 1);}}></input>
               <label for="online">Online</label>
-              <input type="radio" id="onsite" name="radio" value="place3" onChange={e => test(3)}></input>
+              <input type="radio" id="onsite" name="radio" value="2" onChange={e => {setLocationType(2); getEvents(null, 2);}}></input>
               <label for="onsite">Onsite</label>
           </div>
         </div>

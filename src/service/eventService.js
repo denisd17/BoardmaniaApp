@@ -4,10 +4,10 @@ import { JoinEventDto } from "../dto/JoinEventDto";
 const EVENTS_PATH = "/events"
 let counter = 0;
 
-const getEvents = async (pageNumber, pageSize, filters) => {
+const getEventsPage = async (pageNumber, pageSize, filters) => {
     try {
         const token = localStorage.getItem('access_token');
-        const response = await axios.post(EVENTS_PATH, filters, {
+        const response = await axios.post(EVENTS_PATH + "/page", filters, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -21,7 +21,7 @@ const getEvents = async (pageNumber, pageSize, filters) => {
         if(counter < 5) {
             counter ++;
             console.log("Retrying...")
-            setTimeout(getEvents, 500);
+            setTimeout(getEventsPage, 500);
         }
     }
 }
@@ -39,7 +39,7 @@ const getEventsOfCurrentUser = async () => {
         if(counter < 5) {
             counter ++;
             console.log("Retrying...")
-            setTimeout(getEvents, 500);
+            setTimeout(getEventsOfCurrentUser, 500);
         }
     }
 } 
@@ -75,4 +75,4 @@ const joinEvent = async (voteDtoList, eventId) => {
     }
 }
 
-export default { getEvents, createEvent, joinEvent, getEventsOfCurrentUser };
+export default { getEventsPage, createEvent, joinEvent, getEventsOfCurrentUser };
