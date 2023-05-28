@@ -23,7 +23,7 @@ export default function TopSection() {
             {currentUser && (
             <div className="logged-in-menu flex-row-center">
                 <div className="main-menu flex-row-center"> 
-                    <div className="div-link" onClick={() => { handleClick("/my-events") }}> Create Event </div>
+                    <div className="div-link" onClick={() => { handleClick("/createEvent") }}> Create Event </div>
                     <div className="div-link" onClick={() => { handleClick("/my-events") }}> My Events </div>
                     <div className="div-link" onClick={() => { handleClick("/dashboard") }}> All Events </div>
                     <div className="div-link" onClick={() => { handleClick("/games") }}> Show Games </div>
