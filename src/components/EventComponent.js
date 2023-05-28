@@ -10,6 +10,15 @@ import { useAuth } from '../contexts/AuthContext';
 import JoinEventCard from './JoinEventCard';
 import ReportModal from './ReportModal';
 import reportService from '../service/reportService';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+
+
+// Add the icons to the library
+library.add(fas);
+
 
 const EventComponent = props => {
   const { currentUser } = useAuth();
@@ -25,6 +34,8 @@ const EventComponent = props => {
   const [currentUserInfo, setCurrentUserInfo] = useState();
   const [showReportModal, setShowReportModal] = useState(false);
   const [modalParam, setModalParam] = useState();
+  const [absents, setAbsents] = useState([]);
+  const [disableBtn, setDisableBtn] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -123,6 +134,25 @@ const EventComponent = props => {
     handleCloseReportModal();
   }
 
+  const handleAbsent = (userId) => {
+    setAbsents(prev => [...prev, userId]);
+  }
+  const removeFromAbsents = (id) => {
+    setAbsents(prev => prev.filter(val => val !== id));
+  }
+
+  const sendData = () => {
+    const data = { 
+      absentUserIds: absents,
+      eventId: event.id,
+      firstPlaceUserId: null,
+      secondPlaceUserId: null,
+      thirdPlaceUserId: null
+    }
+    eventService.sendParticipantsData(data);
+    setDisableBtn(true);
+
+  }
   return (
     <>
       <TopSection />
@@ -180,15 +210,19 @@ const EventComponent = props => {
                     {
                       type === "joined" && (
                         <td>
-                          <Button className='btn-danger btn-sm' onClick={() => openReportModal(participant)}> <b>Report</b></Button>
+                          <Button className='btn-danger btn-sm' disabled={participant?.id === currentUserInfo?.id} onClick={() => openReportModal(participant)}> <b>Report</b></Button>
                         </td>
                       )
                     }
                     {
                       type === "created" && (
                         <td className='action-td'>
-                          <Button className='btn-success btn-sm my-btn'> <b>Award</b> </Button>
-                          <Button className='btn-danger btn-sm my-btn'> <b>Absent</b> </Button>
+                          {/* <Button className='btn-success btn-sm my-btn'> <b>Award</b> </Button> */}
+                          <Button className='btn-danger btn-sm my-btn' onClick={() => handleAbsent(participant.id)}> <b>Absent</b> </Button>
+                          { absents.includes(participant.id) && (
+                            <FontAwesomeIcon icon={['fas', 'x']} className='red-icon' style={{color: 'red'}} onClick={() => removeFromAbsents(participant.id)}/>
+                          )}
+
                         </td>
                       )
                     }
@@ -196,6 +230,9 @@ const EventComponent = props => {
                 )
               })}
             </table>
+            {type === "created" && (
+              <Button className='btn-success btn-sm mt-3' onClick={sendData} disabled = {absents.length === 0 || disableBtn === true}> <b>Submit Absents</b> </Button>
+            )}
           </div>
         </>
       )}

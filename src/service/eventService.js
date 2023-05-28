@@ -110,5 +110,20 @@ const getJoinedEvents = async () => {
         }
     }
 } 
+
+const sendParticipantsData = async (data) => {
+    try {
+        console.log(data);
+        const token = localStorage.getItem('access_token');
+        const response = await axios.post(EVENTS_PATH + "/initiator-report", data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response;
+    } catch (error) {
+       console.log(error);
+    }
+}
  
-export default { getEventsPage, createEvent, joinEvent, getEventsOfCurrentUser, getParticipants, getJoinedEvents };
+export default { getEventsPage, createEvent, joinEvent, getEventsOfCurrentUser, getParticipants, getJoinedEvents, sendParticipantsData };

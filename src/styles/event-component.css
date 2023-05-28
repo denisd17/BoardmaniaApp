@@ -20,6 +20,8 @@
 .form-event { 
     margin: 10px;
     width: 350px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3)
+
 }
 
 .my-select {
@@ -103,6 +105,8 @@ select::-webkit-scrollbar-thumb:hover {
     height: 100%;
     width: 100%;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 table {
@@ -110,6 +114,7 @@ table {
     max-width: 1070px;
     font-family: arial, sans-serif;
     border: 2px solid black;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3)
 }
 
 td, th {
@@ -130,8 +135,17 @@ tr:nth-child(odd) {
 }
 
 .action-td {
-
+    position: relative;
 }
 .my-btn {
     margin-right: 5px;
 }
+
+
+.red-icon {
+    color: 'red' !important;
+    cursor: pointer;
+    margin-left: 10px;
+    position: absolute;
+    top: 33%;
+  }
