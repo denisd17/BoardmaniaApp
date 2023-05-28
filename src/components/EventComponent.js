@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { useParams, useLocation, useHistory } from 'react-router-dom'
-import TopSection from './TopSection';
+import React, { useState, useEffect } from "react";
+import { useParams, useLocation, useHistory } from "react-router-dom";
+import TopSection from "./TopSection";
 import { Form, Button, Alert } from "react-bootstrap";
 import "../styles/event-component.css";
-import gameService from '../service/gameService';
-import eventService from '../service/eventService';
-import userService from '../service/userService';
-import { useAuth } from '../contexts/AuthContext';
-import JoinEventCard from './JoinEventCard';
+import gameService from "../service/gameService";
+import eventService from "../service/eventService";
+import userService from "../service/userService";
+import { useAuth } from "../contexts/AuthContext";
+import JoinEventCard from "./JoinEventCard";
 
-const EventComponent = props => {
+const EventComponent = (props) => {
   const { currentUser } = useAuth();
   const { id } = useParams();
   const location = useLocation();
@@ -33,7 +33,7 @@ const EventComponent = props => {
       } catch (err) {
         console.log(err);
       }
-    }
+    };
     getGamesForEvent(id);
 
     const getParticipants = async (id) => {
@@ -43,30 +43,31 @@ const EventComponent = props => {
       } catch (err) {
         console.log(err);
       }
-    }
+    };
     getParticipants(id);
 
-    const getCurrentUserInfo = async() => {
+    const getCurrentUserInfo = async () => {
       try {
         const response = await userService.getCurrentUserInfo();
         setCurrentUserInfo(response.data);
-      } catch(err) {
+      } catch (err) {
         console.log(err);
       }
-    }
+    };
     getCurrentUserInfo();
   }, []);
 
-
   function handleSelectChange(event) {
-    setSelectedGames([...event.target.options].filter(option => option.selected))
+    setSelectedGames(
+      [...event.target.options].filter((option) => option.selected)
+    );
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     const votes = {
-      voteDtoList: selectedGames.map(option => Number(option.value))
-    }
+      voteDtoList: selectedGames.map((option) => Number(option.value)),
+    };
     try {
       setError("");
       setLoading(true);
@@ -79,7 +80,6 @@ const EventComponent = props => {
       }
     } catch (error) {
       console.log(error);
-
     }
     setLoading(false);
   }
@@ -91,9 +91,11 @@ const EventComponent = props => {
   }
 
   function isInitiator() {
-    
     if (currentUserInfo) {
-      return currentUserInfo.firstName + " " + currentUserInfo.lastName === event.initiatorName;
+      return (
+        currentUserInfo.firstName + " " + currentUserInfo.lastName ===
+        event.initiatorName
+      );
     }
   }
 
@@ -106,32 +108,58 @@ const EventComponent = props => {
           {error}{" "}
         </Alert>
       )}
-      <div className='details-container'>
-        <Form className='form-event' onSubmit={handleSubmit}>
+      <div className="details-container">
+        <Form className="form-event" onSubmit={handleSubmit}>
           <Form.Group id="games" className="text-center">
-            <Form.Label className='form-label-event p-3'><b>Vote for the games you want</b></Form.Label>
-            <Form.Select multiple onChange={handleSelectChange} className='my-select'>
-              {
-                games.map(val => {
-                  return (
-                    <option key={val.id} value={val.id}>{val.name}</option>
-                  )
-                })
-              }
+            <Form.Label className="form-label-event p-3">
+              <b>Vote for the games you want</b>
+            </Form.Label>
+            <Form.Select
+              multiple
+              onChange={handleSelectChange}
+              className="my-select"
+            >
+              {games.map((val) => {
+                return (
+                  <option key={val.id} value={val.id}>
+                    {val.name}
+                  </option>
+                );
+              })}
             </Form.Select>
           </Form.Group>
-          <div className='f-footer'>
-            <Button disabled={loading || !isEligible() || isInitiator() || selectedGames.length === 0} className="w-50 btn-success btn-join" type="submit">
+          <div className="f-footer">
+            <Button
+              disabled={
+                loading ||
+                !isEligible() ||
+                isInitiator() ||
+                selectedGames.length === 0
+              }
+              className="w-50 btn-success btn-join"
+              type="submit"
+            >
               Join Event
             </Button>
-            <div className={isEligible() ? 'trust-sc-c text-green': 'trust-sc-c text-red'}> {currentUserInfo ? currentUserInfo.trustScore : '0'} / {event.minTrustScore}</div>
+            <div
+              className={
+                isEligible() ? "trust-sc-c text-green" : "trust-sc-c text-red"
+              }
+            >
+              {" "}
+              {currentUserInfo ? currentUserInfo.trustScore : "0"} /{" "}
+              {event.minTrustScore} TRUST
+            </div>
           </div>
         </Form>
-        <JoinEventCard event={event} showBtn={false} participants={participants} />
+        <JoinEventCard
+          event={event}
+          showBtn={false}
+          participants={participants}
+        />
       </div>
     </>
-  )
-}
-
+  );
+};
 
 export default EventComponent;

@@ -1,60 +1,66 @@
 .main-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding-top: 14px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 14px;
 }
 
 .filters-container {
-    display: flex;
-    width: 94%;
-    background-color: white;
-    height: 60px;
+  display: flex;
+  width: 94%;
+  border-radius: 10px;
+  border: 1px solid #000000;
+  background-color: #fff7d4;
+  padding-right: 20px;
+  height: 60px;
 }
 
 .search-bar-container {
-    height: 100%;
-    width: 60%;
-    display: flex;
-    align-items: center;
-    padding-left: 30px;
-    padding-right: 20px;
+  height: 100%;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.search-input {
+  height: 50%;
 }
 
 input {
-    height: 50%;
-    width: 100%;
+  height: 1em;
+  width: 100%;
 }
 
 .checkbox-container {
-    height: 100%;
-    width: 40%;
-    display: flex;
-    align-items: center;
+  height: 100%;
+  width: 40%;
+  display: flex;
+  align-items: center;
 }
 
 .page-menu {
-    display: flex;
-    width: 60%;
-    background-color: white;
-    height: 60px;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  width: 60%;
+  background-color: white;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
 }
 
 .page-menu div {
-    padding-left: 50px;
-    padding-right: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .page-button {
-
 }
 
 .event-grid {
-    display: grid;
-    grid-template-columns: auto auto;
+  display: grid;
+  grid-template-columns: auto auto;
 }

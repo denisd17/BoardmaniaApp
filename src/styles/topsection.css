@@ -1,55 +1,54 @@
 .flex-row-center {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .container-top {
-    height: 120px;
-    background-color: white;
-    width: 100%;
+  height: 120px;
+  background-color: #ffd95a;
+  width: 100%;
 }
 
 .app-logo {
-    background-color: blueviolet;
-    width: 15%;
+  background-color: blueviolet;
+  width: 15%;
 }
 
 .logged-in-menu {
-    justify-content: space-between;
-    width: 85%;
+  width: 85%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .main-menu {
-    margin-left: 100px;
-    justify-content: flex-start;
-    gap: 100px;
-    width: 95%;
-    
+  margin-left: 100px;
+  width: 95%;
 }
 
 .side-menu {
-    justify-content: space-evenly;
-    width: 5%; 
-    
+  justify-content: space-evenly;
+  width: 5%;
 }
 
 .div-link {
-    font-size: 30px;
-    font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  font-family: "Oswald", sans-serif;
 }
 
 .div-link:hover {
-    border-bottom: 5px solid black;
-    margin-bottom: -5px;
+  border-bottom: 5px solid black;
+  margin-bottom: -5px;
+  cursor: pointer;
 }
 
 .side-img {
-    max-width: 60%;
-    max-height: 60%;
+  max-width: 60%;
+  max-height: 60%;
 }
 
 .side-button {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }

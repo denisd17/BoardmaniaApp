@@ -1,99 +1,96 @@
 .details-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    padding-top: 30px;
-    
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
 }
 .form-label-event {
-    height: 100%;
-    width: 100%;
-    background-color: #ffe499;
-    border: 2px solid black;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    padding: 10px;
-    margin: 0 !important;
-    border-bottom: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: #fff7d4;
+  border: 2px solid black;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 10px;
+  margin: 0 !important;
+  border-bottom: 0px;
 }
-.form-event { 
-    margin: 10px;
-    margin-left: 50px;
-    width: 350px;
+.form-event {
+  margin: 10px;
+  margin-left: 50px;
+  width: 350px;
 }
 
 .my-select {
-    background-color: #ffe499 !important;
-    border: 2px solid black !important;
-    overflow: auto !important;
-    border-radius: 0px !important;
-    height: 252px;
+  background-color: #FFF7D4 !important;
+  border: 2px solid black !important;
+  overflow: auto !important;
+  border-radius: 0px !important;
+  height: 252px;
 }
 
 .my-select option:checked {
-    background-color: rgb(221, 174, 95);
+  background-color: rgb(221, 174, 95);
 }
 .my-select:focus {
-    background-color: rgb(221, 174, 95);
+  background-color: rgb(221, 174, 95);
 }
 .my-select option {
-    padding: 2px;
-    padding-left: 10px;
-    margin-bottom: 2px;
-    border-bottom: 1px solid black;
-    border-radius: 2px;
-    cursor: pointer;
-    
+  padding: 2px;
+  padding-left: 10px;
+  margin-bottom: 2px;
+  border-bottom: 1px solid black;
+  border-radius: 2px;
+  cursor: pointer;
 }
 select::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
+  width: 8px; /* Width of the scrollbar */
 }
-  
+
 select::-webkit-scrollbar-track {
-    background-color: rgb(221, 174, 95); /* Color of the track */
-    border-radius: 3px;
+  background-color: rgb(221, 174, 95); /* Color of the track */
+  border-radius: 3px;
 }
-  
+
 select::-webkit-scrollbar-thumb {
-    background-color: #f5ca53; /* Color of the scroll thumb */
-    border-left: 1px solid black;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    border-radius: 3px;
+  background-color: #f5ca53; /* Color of the scroll thumb */
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-radius: 3px;
 }
 select::-webkit-scrollbar-thumb:hover {
-    background-color: #ffe499; /* Color of the scroll thumb on hover */
+  background-color: #ffe499; /* Color of the scroll thumb on hover */
 }
 
-  .f-footer {
-    display: flex;
-    border: 2px solid black;
-    border-top: 0px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-  
-  .trust-sc-c {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    background-color: #ffe499; /* Color of the scroll thumb on hover */
-    border-radius: 2px;
-    font-size: large;
-    font-weight: bold;
+.f-footer {
+  display: flex;
+  border: 2px solid black;
+  border-top: 0px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
 
-  }
+.trust-sc-c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  background-color: #fff7d4; /* Color of the scroll thumb on hover */
+  border-radius: 2px;
+  font-size: large;
+  font-weight: bold;
+}
 
-  .btn-join {
-    border-radius: 2px !important;
-  }
-  
+.btn-join {
+  border-radius: 2px !important;
+}
+
 .text-red {
-    color: red;
+  color: red;
 }
 
 .text-green {
-    color: green;
+  color: green;
 }
