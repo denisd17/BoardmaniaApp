@@ -19,7 +19,6 @@
 }
 .form-event { 
     margin: 10px;
-    margin-left: 50px;
     width: 350px;
 }
 
@@ -97,3 +96,36 @@ select::-webkit-scrollbar-thumb:hover {
 .text-green {
     color: green;
 }
+
+.participants-c {
+    margin-top:20px;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}
+
+table {
+    width: 100%;
+    max-width: 1070px;
+    font-family: arial, sans-serif;
+    border: 2px solid black;
+}
+
+td, th {
+    text-align: left;
+    padding: 8px;
+    padding-left: 15px;
+  }
+tr:first-child {
+    border-bottom: 4px solid black !important;
+}
+tr:nth-child(even) {
+    background-color: #f5ca53;
+    border-bottom: 2px solid black;
+}
+tr:nth-child(odd) {
+    background-color: #ffe499;
+    border-bottom: 2px solid black;
+}
+

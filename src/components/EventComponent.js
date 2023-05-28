@@ -129,6 +129,27 @@ const EventComponent = props => {
         </Form>
         <JoinEventCard event={event} showBtn={false} participants={participants} />
       </div>
+      {participants.length > 0 && (
+        <>
+          <div className='participants-c'>
+            <table className='t-c'>
+              <tr className='t-r'>
+                <th> First Name </th>
+                <th> Last Name </th>
+              </tr>
+              {participants.map((participant, key) => {
+                return (
+                  <tr>
+                    <td> {participant.firstName} </td>
+                    <td> {participant.lastName} </td>
+                  </tr>
+                )
+              })}
+            </table>
+          </div>
+        </>
+      )}        
+      
     </>
   )
 }
