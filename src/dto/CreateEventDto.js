@@ -7,6 +7,8 @@ export class createEventDto {
   minTrustScore;
   gameIds;
   eventDateTimestamp;
+  votingDeadlineTimestamp;
+  confirmationDeadlineTimestamp;
 
   constructor(data) {
     this.name = data.name;
@@ -17,5 +19,7 @@ export class createEventDto {
     this.minTrustScore = data.minTrustScore;
     this.gameIds = data.gameIds;
     this.eventDateTimestamp = data.eventDateTimestamp;
+    this.votingDeadlineTimestamp = data.votingDeadlineTimestamp;
+    this.confirmationDeadlineTimestamp = data.confirmationDeadlineTimestamp;
   }
 }

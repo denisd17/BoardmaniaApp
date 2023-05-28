@@ -1,11 +1,9 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import "../styles/join-event-card.css";
 
 const JoinEventCard = (props) => {
-  const { event, handleSeeMore, showBtn, participants } = props;
+  const { event, participants } = props;
   const hyperlink= (<a href={event.location} title={event.location}> click here </a>); 
-  console.log("ceva", participants);
   return (
     <div className="event-card-c">
       <div className="header-c">
@@ -22,7 +20,7 @@ const JoinEventCard = (props) => {
         </div>
         <div className="place-date-container">
             <div>
-                <b>Location:</b> {event.online ? hyperlink : event.location}
+                <b>Where:</b> {event.online ? hyperlink : event.location}
             </div>
             <div>
                 <b>When:</b>{" "}

@@ -27,6 +27,8 @@ const CreateEventComponent = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
+  const [votingDeadlineDate, setVotingDeadlineDate] = useState(new Date());
+  const [confirmationDeadlineDate, setConfirmationDeadlineDate] = useState(new Date());
 
   useEffect(() => {
     if (!currentUser) {
@@ -53,7 +55,9 @@ const CreateEventComponent = () => {
     e.preventDefault();
     console.log(startDate.toISOString().slice(0, 11) + timeRef.current.value + ":00");
     let eventDate = Date.parse(startDate.toISOString().slice(0, 11) + timeRef.current.value + ":00");
-    console.log(eventDate);
+    let votingDeadline = Date.parse(votingDeadlineDate.toISOString().slice(0, 10));
+    let confirmDeadline = Date.parse(confirmationDeadlineDate.toISOString().slice(0, 10));
+    console.log(eventDate, "v: " + votingDeadline, "c: " + confirmDeadline);
     const eventData = {
       name: nameRef.current.value,
       description: descriptionRef.current.value,
@@ -62,6 +66,8 @@ const CreateEventComponent = () => {
       online: onlineRef.current.checked,
       maxNrOfPlayers: maxNumOfPlayersRef.current.value,
       minTrustScore: minTrustScoreRef.current.value,
+      votingDeadlineTimestamp: votingDeadline,
+      confirmationDeadlineTimestamp: confirmDeadline,
       gameIds: selectedGames.map((option) => Number(option.value)),
     };
     
@@ -127,6 +133,7 @@ const CreateEventComponent = () => {
                   <Form.Label>Event Date</Form.Label>
                   <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
                 </Form.Group>
+
                 <Form.Group id="time" className="text-center">
                   <Form.Label>Event Time</Form.Label>
                   <Form.Control
@@ -136,6 +143,16 @@ const CreateEventComponent = () => {
                     className="text-center"
                     placeholder="18:30"
                   />
+                </Form.Group>
+                
+                <Form.Group className="text-center">
+                  <Form.Label>Voting Deadline Date</Form.Label>
+                  <DatePicker selected={votingDeadlineDate} onChange={(date) => setVotingDeadlineDate(date)} />
+                </Form.Group>
+                
+                <Form.Group className="text-center">
+                  <Form.Label>Confirmation Deadline Date</Form.Label>
+                  <DatePicker selected={confirmationDeadlineDate} onChange={(date) => setConfirmationDeadlineDate(date)} />
                 </Form.Group>
                 
                 <Form.Group id="maxplayers" className="text-center">

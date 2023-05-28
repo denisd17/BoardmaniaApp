@@ -35,12 +35,14 @@ const RegisterComponent = () => {
         emailRef.current.value,
         passwordRef.current.value,
         firstNameRef.current.value,
-        lastNameRef.current.value
+        lastNameRef.current.value,
+        usernameRef.current.value
       );
       if (status !== 200) {
         throw new Error("Failed to register");
       }
-      history.push("/login");
+      // history.replace("/login");
+      window.location.replace("/login");
     } catch {
       setError("Failed to register");
     }

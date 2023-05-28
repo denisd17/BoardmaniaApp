@@ -77,7 +77,6 @@ const joinEvent = async (voteDtoList, eventId) => {
 
 const getParticipants = async (id) => {
     try {
-        console.log("CEva")
         const token = localStorage.getItem('access_token');
         const response = await axios.get(EVENTS_PATH + "/participants/" + id, {
             headers: {
