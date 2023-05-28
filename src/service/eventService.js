@@ -75,4 +75,23 @@ const joinEvent = async (voteDtoList, eventId) => {
     }
 }
 
-export default { getEventsPage, createEvent, joinEvent, getEventsOfCurrentUser };
+const getParticipants = async (id) => {
+    try {
+        console.log("CEva")
+        const token = localStorage.getItem('access_token');
+        const response = await axios.get(EVENTS_PATH + "/participants/" + id, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response;
+    } catch (error) {
+        if(counter < 5) {
+            counter ++;
+            console.log("Retrying...")
+            setTimeout(getParticipants, 500);
+        }
+    }
+}
+ 
+export default { getEventsPage, createEvent, joinEvent, getEventsOfCurrentUser, getParticipants };

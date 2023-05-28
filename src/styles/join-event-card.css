@@ -1,0 +1,59 @@
+.event-card-c{
+    width: 700px;
+    height: 350px;
+    margin: 10px;
+    border: 3px solid black;
+    border-radius: 10px;
+    background-color: #ffe499;
+    padding: 10px;
+  }
+  
+.header-c {
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 2px solid black;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.body-c {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 205px;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    /* background-color: aqua; */
+}
+
+.footer-c {
+    display: flex;
+    padding-left: 10px;
+    /* background-color: aqua; */
+    border-top: 2px solid black;
+    padding-top: 15px;
+    justify-content: flex-start;
+}
+  
+.desc-container { 
+    padding-top: 10px;
+    width: 60%;
+    /* background-color: red; */
+    padding-right: 10px;
+    border-right: 2px solid black;
+    
+}
+
+.place-date-container {
+    width: 40%;
+    padding-left: 10px;
+    padding-top: 10px;
+
+}

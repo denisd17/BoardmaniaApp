@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import { useParams, useLocation, useHistory} from 'react-router-dom'
-import EventCard from './EventCard';
 import TopSection from './TopSection';
 import { Form, Button, Alert } from "react-bootstrap";
 import "../styles/event-component.css";
 import gameService from '../service/gameService';
 import eventService from '../service/eventService';
 import { useAuth } from '../contexts/AuthContext';
+import JoinEventCard from './JoinEventCard';
 
 const EventComponent = props => {
   const { currentUser } = useAuth();
@@ -17,6 +17,7 @@ const EventComponent = props => {
   const [selectedGames, setSelectedGames] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [participants, setParticipants] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -32,6 +33,16 @@ const EventComponent = props => {
         }
     }
     getGamesForEvent(id);
+
+    const getParticipants = async (id) => {
+      try {
+        const response = await eventService.getParticipants(id);
+        setParticipants(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getParticipants(id);
 }, []);
 
 
@@ -71,7 +82,7 @@ const EventComponent = props => {
                 </Alert>
               )}
       <div className='details-container'>
-        <EventCard event={event} showBtn={false} />
+        <JoinEventCard event={event} showBtn={false} participants={participants} />
         <Form className='form-event' onSubmit={handleSubmit}>
           <Form.Group id="games" className="text-center">
             <Form.Label className='form-label-event'>Vote the games you want to play</Form.Label>
@@ -85,7 +96,7 @@ const EventComponent = props => {
               }
             </Form.Select>
           </Form.Group>
-          <Button disabled={loading} className="w-100 mt-4 btn-success" type="submit">
+          <Button disabled={loading} className="w-50 mt-4 btn-success" type="submit">
             Join Event
           </Button>
         </Form>
