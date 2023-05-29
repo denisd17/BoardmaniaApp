@@ -15,11 +15,9 @@ const LoginComponent = () => {
   const { login, currentUser } = useAuth();
   const history = useHistory();
 
-
   useEffect(() => {
-    if(currentUser) 
-      return history.push("/");
-  }, [])
+    if (currentUser) return history.push("/");
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -40,7 +38,10 @@ const LoginComponent = () => {
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: "60vh" }}
       >
-        <div className="w-100" style={{ maxWidth: "400px" }}>
+        <div
+          className="w-100"
+          style={{ maxWidth: "400px", top: "8rem", position: "absolute" }}
+        >
           <Card>
             <Card.Body className="card-body">
               <h2 className="text-center mb-4"> Log In </h2>

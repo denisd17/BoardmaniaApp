@@ -54,7 +54,7 @@ const AddGameComponent = () => {
       <Container className="d-flex align-items-center justify-content-center">
         <div
           className="w-100"
-          style={{ maxWidth: "400px", top: "100px", position: "absolute" }}
+          style={{ maxWidth: "400px", top: "8rem", position: "absolute" }}
         >
           <Card>
             <Card.Body className="cardBody">

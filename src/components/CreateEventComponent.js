@@ -28,7 +28,9 @@ const CreateEventComponent = () => {
   const [loading, setLoading] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [votingDeadlineDate, setVotingDeadlineDate] = useState(new Date());
-  const [confirmationDeadlineDate, setConfirmationDeadlineDate] = useState(new Date());
+  const [confirmationDeadlineDate, setConfirmationDeadlineDate] = useState(
+    new Date()
+  );
 
   useEffect(() => {
     if (!currentUser) {
@@ -53,10 +55,18 @@ const CreateEventComponent = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(startDate.toISOString().slice(0, 11) + timeRef.current.value + ":00");
-    let eventDate = Date.parse(startDate.toISOString().slice(0, 11) + timeRef.current.value + ":00");
-    let votingDeadline = Date.parse(votingDeadlineDate.toISOString().slice(0, 10));
-    let confirmDeadline = Date.parse(confirmationDeadlineDate.toISOString().slice(0, 10));
+    console.log(
+      startDate.toISOString().slice(0, 11) + timeRef.current.value + ":00"
+    );
+    let eventDate = Date.parse(
+      startDate.toISOString().slice(0, 11) + timeRef.current.value + ":00"
+    );
+    let votingDeadline = Date.parse(
+      votingDeadlineDate.toISOString().slice(0, 10)
+    );
+    let confirmDeadline = Date.parse(
+      confirmationDeadlineDate.toISOString().slice(0, 10)
+    );
     console.log(eventDate, "v: " + votingDeadline, "c: " + confirmDeadline);
     const eventData = {
       name: nameRef.current.value,
@@ -70,7 +80,7 @@ const CreateEventComponent = () => {
       confirmationDeadlineTimestamp: confirmDeadline,
       gameIds: selectedGames.map((option) => Number(option.value)),
     };
-    
+
     try {
       setError("");
       setLoading(true);
@@ -91,7 +101,10 @@ const CreateEventComponent = () => {
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: "80vh" }}
       >
-        <div className="w-100" style={{ maxWidth: "400px" }}>
+        <div
+          className="w-100"
+          style={{ maxWidth: "400px", top: "8rem", position: "absolute" }}
+        >
           <Card>
             <Card.Body className="card-body">
               <h2 className="text-center mb-4"> Create Event </h2>
@@ -131,7 +144,10 @@ const CreateEventComponent = () => {
                 </Form.Group>
                 <Form.Group className="text-center">
                   <Form.Label>Event Date</Form.Label>
-                  <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                  />
                 </Form.Group>
 
                 <Form.Group id="time" className="text-center">
@@ -144,17 +160,23 @@ const CreateEventComponent = () => {
                     placeholder="18:30"
                   />
                 </Form.Group>
-                
+
                 <Form.Group className="text-center">
                   <Form.Label>Voting Deadline Date</Form.Label>
-                  <DatePicker selected={votingDeadlineDate} onChange={(date) => setVotingDeadlineDate(date)} />
+                  <DatePicker
+                    selected={votingDeadlineDate}
+                    onChange={(date) => setVotingDeadlineDate(date)}
+                  />
                 </Form.Group>
-                
+
                 <Form.Group className="text-center">
                   <Form.Label>Confirmation Deadline Date</Form.Label>
-                  <DatePicker selected={confirmationDeadlineDate} onChange={(date) => setConfirmationDeadlineDate(date)} />
+                  <DatePicker
+                    selected={confirmationDeadlineDate}
+                    onChange={(date) => setConfirmationDeadlineDate(date)}
+                  />
                 </Form.Group>
-                
+
                 <Form.Group id="maxplayers" className="text-center">
                   <Form.Label>Max Number of Players</Form.Label>
                   <Form.Control
