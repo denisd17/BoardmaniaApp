@@ -1,17 +1,18 @@
 .event-card-container {
-  width: 500px;
-  height: 350px;
-  margin: 10px;
+  width: 30rem;
+  height: 15rem;
+  margin: 1rem;
   border: 3px solid black;
   border-radius: 10px;
-  background-color: #FFF7D4;
-  padding: 10px;
+  background-color: #fff7d4;
+  padding: 1rem;
 }
 
 .header-container {
-  height: 30px;
+  height: 3rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   border-bottom: 2px solid black;
   padding-bottom: 10px;
@@ -19,11 +20,15 @@
   font-weight: bold;
 }
 
+.smaller-text {
+  font-size: 60%;
+}
+
 .body-container {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 205px;
+  height: 5rem;
   margin-bottom: 20px;
 }
 

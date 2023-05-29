@@ -6,26 +6,37 @@ const EventCard = (props) => {
   const { event, handleSeeMore, showBtn, type } = props;
   return (
     <div className="event-card-container">
-      <div className="header-container">{event.name}</div>
+      <div className="header-container">
+        <div>{event.name}</div>
+        <div className="smaller-text">
+          ~ {event.online ? "Online" : "Fizic"} ~
+        </div>
+      </div>
       <div className="body-container">
-        <div>{event.description}</div>
-        <div>Minimum Trust Score: {event.minTrustScore}</div>
-        <div>Maximum Number of Players: {event.maxNumberOfPlayers}</div>
-        <div>Desfasurare: {event.online ? "Online" : "Fizic"}</div>
-        <div>Location: {event.location}</div>
+        <div><b>Description:</b> {event.description}</div>
+        <div><b>Location:</b> {event.location}</div>
         <div>
-          Date & Time:{" "}
-          {Date(event.eventDatetimestamp).toLocaleString("en-US", {
+          {" "}
+          <b>Date:</b>{" "}
+          {new Date(event.eventDateTimestamp).toLocaleString("en-US", {
             timeZone: "UTC",
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
           })}
         </div>
-        <div> Initiator: {event.initiatorName}</div>
       </div>
       <div className="footer-container">
         {showBtn && (
-          <Button className="btn-primary" onClick={() => handleSeeMore(event, type)}>
+          <Button
+            className="btn-primary"
+            onClick={() => handleSeeMore(event, type)}
+          >
             {" "}
-            <b> See More </b>{" "}
+            <b> Go to event </b>{" "}
           </Button>
         )}
       </div>

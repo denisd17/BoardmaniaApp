@@ -15,7 +15,7 @@ const DashboardComponent = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [locationType, setLocationType] = useState(0);
   const [searchParam, setSearchParam] = useState("");
-  const [pageNr, setPageNr] = useState(0);
+  const [pageNr, setPageNr] = useState(1);
 
   const { currentUser } = useAuth();
   const history = useHistory();
