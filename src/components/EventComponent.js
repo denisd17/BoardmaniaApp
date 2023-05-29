@@ -1,28 +1,45 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useLocation, useHistory } from "react-router-dom";
-import TopSection from "./TopSection";
+import React, { useState, useEffect } from 'react'
+import { useParams, useLocation, useHistory } from 'react-router-dom'
+import TopSection from './TopSection';
 import { Form, Button, Alert } from "react-bootstrap";
 import "../styles/event-component.css";
-import gameService from "../service/gameService";
-import eventService from "../service/eventService";
-import userService from "../service/userService";
-import { useAuth } from "../contexts/AuthContext";
-import JoinEventCard from "./JoinEventCard";
+import gameService from '../service/gameService';
+import eventService from '../service/eventService';
+import userService from '../service/userService';
+import { useAuth } from '../contexts/AuthContext';
+import JoinEventCard from './JoinEventCard';
+import ReportModal from './ReportModal';
+import reportService from '../service/reportService';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
-const EventComponent = (props) => {
+
+// Add the icons to the library
+library.add(fas);
+
+
+const EventComponent = props => {
   const { currentUser } = useAuth();
   const { id } = useParams();
   const location = useLocation();
   const event = location.state.event;
+  const type = location.state.type;
   const [games, setGames] = useState([]);
   const [selectedGames, setSelectedGames] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [participants, setParticipants] = useState([]);
   const [currentUserInfo, setCurrentUserInfo] = useState();
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [modalParam, setModalParam] = useState();
+  const [absents, setAbsents] = useState([]);
+  const [disableBtn, setDisableBtn] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
+    console.log("type ", type);
     if (!currentUser) {
       history.push("/login");
     }
@@ -33,7 +50,7 @@ const EventComponent = (props) => {
       } catch (err) {
         console.log(err);
       }
-    };
+    }
     getGamesForEvent(id);
 
     const getParticipants = async (id) => {
@@ -43,7 +60,7 @@ const EventComponent = (props) => {
       } catch (err) {
         console.log(err);
       }
-    };
+    }
     getParticipants(id);
 
     const getCurrentUserInfo = async () => {
@@ -53,21 +70,20 @@ const EventComponent = (props) => {
       } catch (err) {
         console.log(err);
       }
-    };
+    }
     getCurrentUserInfo();
   }, []);
 
+
   function handleSelectChange(event) {
-    setSelectedGames(
-      [...event.target.options].filter((option) => option.selected)
-    );
+    setSelectedGames([...event.target.options].filter(option => option.selected))
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     const votes = {
-      voteDtoList: selectedGames.map((option) => Number(option.value)),
-    };
+      voteDtoList: selectedGames.map(option => Number(option.value))
+    }
     try {
       setError("");
       setLoading(true);
@@ -80,6 +96,7 @@ const EventComponent = (props) => {
       }
     } catch (error) {
       console.log(error);
+
     }
     setLoading(false);
   }
@@ -91,14 +108,51 @@ const EventComponent = (props) => {
   }
 
   function isInitiator() {
+
     if (currentUserInfo) {
-      return (
-        currentUserInfo.firstName + " " + currentUserInfo.lastName ===
-        event.initiatorName
-      );
+      return currentUserInfo.firstName + " " + currentUserInfo.lastName === event.initiatorName;
     }
   }
 
+  const openReportModal = (id) => {
+    setShowReportModal(true);
+    setModalParam(id);
+  }
+  const handleCloseReportModal = () => {
+    setShowReportModal(false);
+  }
+
+  const handleSubmitReportModal = (inputValue, userId) => {
+    console.log('Submitted value:', inputValue);
+    console.log('Additional parameter:', userId);
+    const data = { 
+      reportedUserId: userId,
+      reason: inputValue,
+      eventId: event.id
+    }
+    reportService.sendReport(data);
+    handleCloseReportModal();
+  }
+
+  const handleAbsent = (userId) => {
+    setAbsents(prev => [...prev, userId]);
+  }
+  const removeFromAbsents = (id) => {
+    setAbsents(prev => prev.filter(val => val !== id));
+  }
+
+  const sendData = () => {
+    const data = { 
+      absentUserIds: absents,
+      eventId: event.id,
+      firstPlaceUserId: null,
+      secondPlaceUserId: null,
+      thirdPlaceUserId: null
+    }
+    eventService.sendParticipantsData(data);
+    setDisableBtn(true);
+
+  }
   return (
     <>
       <TopSection />
@@ -108,58 +162,88 @@ const EventComponent = (props) => {
           {error}{" "}
         </Alert>
       )}
-      <div className="details-container">
-        <Form className="form-event" onSubmit={handleSubmit}>
-          <Form.Group id="games" className="text-center">
-            <Form.Label className="form-label-event p-3">
-              <b>Vote for the games you want</b>
-            </Form.Label>
-            <Form.Select
-              multiple
-              onChange={handleSelectChange}
-              className="my-select"
-            >
-              {games.map((val) => {
-                return (
-                  <option key={val.id} value={val.id}>
-                    {val.name}
-                  </option>
-                );
-              })}
-            </Form.Select>
-          </Form.Group>
-          <div className="f-footer">
-            <Button
-              disabled={
-                loading ||
-                !isEligible() ||
-                isInitiator() ||
-                selectedGames.length === 0
-              }
-              className="w-50 btn-success btn-join"
-              type="submit"
-            >
-              Join Event
-            </Button>
-            <div
-              className={
-                isEligible() ? "trust-sc-c text-green" : "trust-sc-c text-red"
-              }
-            >
-              {" "}
-              {currentUserInfo ? currentUserInfo.trustScore : "0"} /{" "}
-              {event.minTrustScore} TRUST
-            </div>
-          </div>
-        </Form>
-        <JoinEventCard
-          event={event}
-          showBtn={false}
-          participants={participants}
-        />
+      <div className='details-container'>
+        {type === undefined && (
+          <>
+            <Form className='form-event' onSubmit={handleSubmit}>
+              <Form.Group id="games" className="text-center">
+                <Form.Label className='form-label-event p-3'><b>Vote for the games you want</b></Form.Label>
+                <Form.Select multiple onChange={handleSelectChange} className='my-select'>
+                  {
+                    games.map(val => {
+                      return (
+                        <option key={val.id} value={val.id}>{val.name}</option>
+                      )
+                    })
+                  }
+                </Form.Select>
+              </Form.Group>
+              <div className='f-footer'>
+                <Button disabled={loading || !isEligible() || isInitiator() || selectedGames.length === 0} className="w-50 btn-success btn-join" type="submit">
+                  <b>Join Event</b>
+                </Button>
+                <div className={isEligible() ? 'trust-sc-c text-green' : 'trust-sc-c text-red'}> {currentUserInfo ? currentUserInfo.trustScore : '0'} / {event.minTrustScore}</div>
+              </div>
+            </Form>
+          </>)
+        }
+        <JoinEventCard event={event} showBtn={false} participants={participants} />
       </div>
+      {participants.length > 0 && (
+        <>
+          <div className='participants-c'>
+            <table className='t-c'>
+              <tr className='t-r'>
+                <th> First Name </th>
+                <th> Last Name </th>
+                {
+                  type !== undefined && (
+                    <th> Actions </th>
+                  )
+                }
+              </tr>
+              {participants.map((participant, key) => {
+                return (
+                  <tr key={key}>
+                    <td> {participant.firstName} </td>
+                    <td> {participant.lastName} </td>
+                    {
+                      type === "joined" && (
+                        <td>
+                          <Button className='btn-danger btn-sm' disabled={participant?.id === currentUserInfo?.id} onClick={() => openReportModal(participant)}> <b>Report</b></Button>
+                        </td>
+                      )
+                    }
+                    {
+                      type === "created" && (
+                        <td className='action-td'>
+                          {/* <Button className='btn-success btn-sm my-btn'> <b>Award</b> </Button> */}
+                          <Button className='btn-danger btn-sm my-btn' onClick={() => handleAbsent(participant.id)}> <b>Absent</b> </Button>
+                          { absents.includes(participant.id) && (
+                            <FontAwesomeIcon icon={['fas', 'x']} className='red-icon' style={{color: 'red'}} onClick={() => removeFromAbsents(participant.id)}/>
+                          )}
+
+                        </td>
+                      )
+                    }
+                  </tr>
+                )
+              })}
+            </table>
+            {type === "created" && (
+              <Button className='btn-success btn-sm mt-3' onClick={sendData} disabled = {absents.length === 0 || disableBtn === true}> <b>Submit Absents</b> </Button>
+            )}
+          </div>
+        </>
+      )}
+      {showReportModal && (
+        <ReportModal onClose={handleCloseReportModal} onSubmit={handleSubmitReportModal} modalParam={modalParam}/>
+      )}
+      
+
     </>
-  );
-};
+  )
+}
+
 
 export default EventComponent;

@@ -92,5 +92,38 @@ const getParticipants = async (id) => {
         }
     }
 }
+
+const getJoinedEvents = async () => {
+    try {
+        const token = localStorage.getItem('access_token');
+        const response = await axios.get(EVENTS_PATH + "/participant", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response;
+    } catch (error) {
+        if(counter < 5) {
+            counter ++;
+            console.log("Retrying...")
+            setTimeout(getJoinedEvents, 500);
+        }
+    }
+} 
+
+const sendParticipantsData = async (data) => {
+    try {
+        console.log(data);
+        const token = localStorage.getItem('access_token');
+        const response = await axios.post(EVENTS_PATH + "/initiator-report", data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response;
+    } catch (error) {
+       console.log(error);
+    }
+}
  
-export default { getEventsPage, createEvent, joinEvent, getEventsOfCurrentUser, getParticipants };
+export default { getEventsPage, createEvent, joinEvent, getEventsOfCurrentUser, getParticipants, getJoinedEvents, sendParticipantsData };
